@@ -29,5 +29,5 @@ jobs:
         with:
           name: output-srpm
           path: |
-            SRPMS/*.srpm
+            SRPMS/*.rpm
           retention-days: 10
