@@ -2,7 +2,7 @@
 name: rpmbuild
 on: [push]
 jobs:
-  container:
+  build-rpm:
     runs-on: ubuntu-latest
     container: centos:7
     steps:
@@ -13,15 +13,21 @@ jobs:
         uses: actions/checkout@v2
       - name: Build SRPM package
         run: |
-          rpmbuild --define "_topdir `pwd`" -bs ./SPECS/aje-vim82.spec
+          rpmbuild --define "_topdir `pwd`" -bs ./SPECS/*.spec
       - name: Build RPM package
         run: |
           rpmbuild --rebuild --define "_topdir `pwd`" ./SRPMS/*.src.rpm
-      - name: Save build artefacts
+      - name: Save RPM artefacts
         uses: actions/upload-artifact@v2
         with:
-          name: output-packages
+          name: output-rpm
           path: |
             RPMS/x86_64/*.rpm
+          retention-days: 10
+      - name: Save SRPM artefacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-srpm
+          path: |
             SRPMS/*.srpm
           retention-days: 10
