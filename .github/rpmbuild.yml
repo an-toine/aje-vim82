@@ -1,0 +1,27 @@
+---
+name: rpmbuild
+on: [push]
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    container: centos:7
+    steps:
+      - name: Install required packages
+        run: |
+          yum install -y rpm-build scl-utils-build scl-utils
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Build SRPM package
+        run: |
+          rpmbuild --define "_topdir `pwd`" -bs ./SPECS/aje-vim82.spec
+      - name: Build RPM package
+        run: |
+          rpmbuild --rebuild --define "_topdir `pwd`" ./SRPMS/*.src.rpm
+      - name: Save build artefacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-packages
+          path: |
+            RPMS/x86_64/*.rpm
+            SRPMS/*.srpm
+          retention-days: 10
