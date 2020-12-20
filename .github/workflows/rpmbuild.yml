@@ -55,6 +55,9 @@ jobs:
       - name: Build SRPM package
         run: |
           rpmbuild --define "_topdir `pwd`" -bs ./SPECS/aje-vim82-vim.spec
+      - name: Install build dependencies
+        run: |
+          yum-builddep -y ./SRPMS/*.src.rpm
       - name: Build RPM package
         run: |
           rpmbuild --rebuild --define "_topdir `pwd`" ./SRPMS/*.src.rpm
