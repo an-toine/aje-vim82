@@ -45,8 +45,8 @@ jobs:
           name: scl-rpm
       - name: Install SCL packages and clean no longer used rpm files
         run: |
-          yum install -y scl-rpm/*.rpm
-          rm -rvf scl-rpm
+          yum install -y /__w/aje-vim82/aje-vim82/scl-rpm/*.rpm
+          rm -rvf /__w/aje-vim82/aje-vim82/scl-rpm
       - name: Checkout sources
         uses: actions/checkout@v2
       - name: Fetch remote Vim sources
