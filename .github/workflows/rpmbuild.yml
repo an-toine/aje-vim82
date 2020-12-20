@@ -43,13 +43,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: scl-rpm
-      - name: Extract SCL rpms
-        run: |
-          unzip scl-rpm
       - name: Install SCL packages and clean no longer used rpm files
         run: |
-          yum install -y *.rpm
-          rm -rvf *.rpm
+          yum install -y scl-rpm/*.rpm
+          rm -rvf scl-rpm
       - name: Checkout sources
         uses: actions/checkout@v2
       - name: Fetch remote Vim sources
