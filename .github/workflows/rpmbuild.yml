@@ -45,6 +45,8 @@ jobs:
           name: scl-rpm
       - name: Install SCL packages and clean no longer used rpm files
         run: |
+          ls -hal
+          ls -hal /__w/aje-vim82/aje-vim82/scl-rpm
           yum install -y /__w/aje-vim82/aje-vim82/scl-rpm/*.rpm
           rm -rvf /__w/aje-vim82/aje-vim82/scl-rpm
       - name: Checkout sources
