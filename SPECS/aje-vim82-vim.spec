@@ -8,6 +8,9 @@
 %{!?scl:%global pkg_name %{name}}
 %scl_package %scl
 
+# Disable debug packages
+%global debug_package %{nil}
+
 Summary: A greatly improved version of the good old UNIX editor Vi
 Name: %{?scl_prefix}%{pkg_name}
 Version: 8.2.2162

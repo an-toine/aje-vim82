@@ -14,12 +14,16 @@
 %scl_package %scl
 
 # SCL package metadatas
-Summary: Package that install %{scl} Software Collection
+Summary: A Software Collection enabling Vim 8.2
 Name: %scl_name
 Version: 1
-Release: 1%{dist}
+Release: 2%{dist}
 License: GPLv2+
 Group: Applications/File
+Url: https://github.com/an-toine/%{scl}
+
+BuildArch: noarch
+
 Source0: README.md
 Source1: LICENSE
 
@@ -28,12 +32,13 @@ Requires: scl-utils
 BuildRequires: scl-utils-build
 
 %description
-This package is the metapackage for scl %{scl} which installs all required dependancies
-to use package %{scl_name_base}.
+This package is the metapackage for scl %{scl} which installs all
+required dependencies to use package %{scl_name_base}.
 
 %package runtime
 Summary: Package installing %{scl} activation scripts
 Group: Applications/File
+Url: https://github.com/an-toine/%{scl}
 Requires: scl-utils
 
 %description runtime
@@ -42,6 +47,7 @@ Package installing essential activation script to use %{scl}.
 %package build
 Summary: Package installing basic build conf for %{scl}
 Group: Development/Libraries
+Url: https://github.com/an-toine/%{scl}
 Requires: scl-utils-build
 
 %description build
@@ -72,6 +78,7 @@ echo "No build required"
 
 # Generate enable file
 cat <<'EOF' | tee -a %{buildroot}%{_scl_scripts}/enable
+#!/bin/sh
 export PATH="%{_bindir}:%{_sbindir}${PATH:+:${PATH}}"
 export LD_LIBRARY_PATH="%{_libdir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 export LIBRARY_PATH="%{_libdir}${LIBRARY_PATH:+:${LIBRARY_PATH}}"
@@ -114,7 +121,9 @@ semanage fcontext -a -e %{_root_sysconfdir} %{_sysconfdir} >/dev/null 2>&1 || :
 semanage fcontext -a -e %{_root_localstatedir} %{_localstatedir} >/dev/null 2>&1 || :
 selinuxenabled && load_policy || :
 EOF
+
 cat <<EOF | tee %{buildroot}%{?_scl_scripts}/register.d/70.selinux-restore
+#!/bin/sh
 restorecon -R %{?_scl_root} >/dev/null 2>&1 || :
 restorecon -R %{_sysconfdir} >/dev/null 2>&1 || :
 restorecon -R %{_localstatedir} >/dev/null 2>&1 || :
@@ -129,6 +138,7 @@ mkdir -p %{buildroot}%{?_scl_scripts}/register.content%{_sysconfdir}
 %{?_scl_scripts}/register.d/70.selinux-restore
 
 %files
+%doc README.md LICENSE
 
 %files runtime -f filelist
 %scl_files
@@ -142,11 +152,13 @@ mkdir -p %{buildroot}%{?_scl_scripts}/register.content%{_sysconfdir}
 
 %files build
 %doc LICENSE
-%{_root_sysconfdir}/rpm/macros.%{scl}-config
+%config(noreplace) %{_root_sysconfdir}/rpm/macros.%{scl}-config
 
 %files scldevel
-%{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
+%config(noreplace) %{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
-* Sun Dec 13 2020 Antoine Jouve <ant.jouve@gmail.com> 1.1
+* Mon Dec 21 2020 Antoine Jouve <ant.jouve@gmail.com> 1-2
+- Fix rpmlint errors
+* Sun Dec 13 2020 Antoine Jouve <ant.jouve@gmail.com> 1-1
 - First go at building %{scl} metapackage
