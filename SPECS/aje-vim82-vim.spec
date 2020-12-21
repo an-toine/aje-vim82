@@ -8,13 +8,12 @@
 %{!?scl:%global pkg_name %{name}}
 %scl_package %scl
 
-# Disable debug packages
-%global debug_package %{nil}
+%global sourcebasename %{pkg_name}-%{version}
 
 Summary: A greatly improved version of the good old UNIX editor Vi
 Name: %{?scl_prefix}%{pkg_name}
 Version: 8.2.2162
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Group: Applications/Text
 URL: https://github.com/vim/vim
@@ -57,9 +56,11 @@ This package contains common runtimes and manpages files for used by
 both GUI and non GUI Vim packages.
 
 %prep
-%setup -n %{pkg_name}-%{version}
+%setup -c -n %{scl}
+cd %{sourcebasename}
 
 %build
+cd %{sourcebasename}
 %configure --with-features=huge \
             --enable-largefile \
             --disable-darwin \
@@ -96,6 +97,7 @@ make distclean
 make %{?_smp_mflags} VIMRUNTIMEDIR=%{_datadir}/%{pkg_name}/vim%{scl_name_version}
 
 %install
+cd %{sourcebasename}
 make install DESTDIR=$RPM_BUILD_ROOT VIMRCLOC=%{_root_sysconfdir}/%{_scl_prefix}/%{scl}/etc/ VIMRUNTIMEDIR=%{_datadir}/%{pkg_name}/vim%{scl_name_version}
 
 # Move the last vim build result which is gvim to a correct name
@@ -146,8 +148,8 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 
 %files
 %defattr(-, root, root, -)
-%doc README.txt
-%license runtime/doc/uganda.txt
+%doc %{sourcebasename}/README.txt
+%license %{sourcebasename}/runtime/doc/uganda.txt
 %{_bindir}/eview
 %{_bindir}/evim
 %{_bindir}/ex
@@ -160,9 +162,9 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 
 %files gtk
 %defattr(-, root, root, -)
-%doc README.txt
-%doc runtime/doc/gui_x11.txt
-%license runtime/doc/uganda.txt
+%doc %{sourcebasename}/README.txt
+%doc %{sourcebasename}/runtime/doc/gui_x11.txt
+%license %{sourcebasename}/runtime/doc/uganda.txt
 %{_bindir}/gview
 %{_bindir}/gvim
 %{_bindir}/gvimdiff
@@ -174,8 +176,8 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 
 %files common
 %defattr(-, root, root, -)
-%doc README.txt
-%license runtime/doc/uganda.txt
+%doc %{sourcebasename}/README.txt
+%license %{sourcebasename}/runtime/doc/uganda.txt
 %config(noreplace) %{_root_sysconfdir}/%{_scl_prefix}/%{scl}/etc/vimrc
 %{_bindir}/vimtutor
 %{_mandir}/*
@@ -244,5 +246,7 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 %{_scl_scripts}/deregister.d/*
 
 %changelog
-* Sat Dec 19 2020 Antoine Jouve <ant.jouve@gmail.com> - 8.2.2162-1.el7
+* Mon Dec 21 2020 Antoine Jouve <ant.jouve@gmail.com> - 8.2.2162-2
+- Unpack sources to different directory to avoid debuginfo conflicts
+* Sat Dec 19 2020 Antoine Jouve <ant.jouve@gmail.com> - 8.2.2162-1
 - Rebuild Vim release 8.2.2162
