@@ -22,7 +22,7 @@ jobs:
         with:
           name: scl-rpm
           path: |
-            RPMS/x86_64/*.rpm
+            RPMS/noarch/*.rpm
           retention-days: 10
       - name: Save SRPM artefacts
         uses: actions/upload-artifact@v2

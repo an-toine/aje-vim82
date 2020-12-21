@@ -39,6 +39,9 @@ required dependencies to use package %{scl_name_base}.
 Summary: Package installing %{scl} activation scripts
 Group: Applications/File
 Url: https://github.com/an-toine/%{scl}
+
+BuildArch: noarch
+
 Requires: scl-utils
 
 %description runtime
@@ -48,6 +51,9 @@ Package installing essential activation script to use %{scl}.
 Summary: Package installing basic build conf for %{scl}
 Group: Development/Libraries
 Url: https://github.com/an-toine/%{scl}
+
+BuildArch: noarch
+
 Requires: scl-utils-build
 
 %description build
@@ -56,6 +62,7 @@ Package installing configuration macros to build %{scl} Software Collection
 %package scldevel
 Summary: Package development files for %{scl}
 Group: Development/Libraries
+BuildArch: noarch
 
 %description scldevel
 Package development files for %{scl} Software Collection
