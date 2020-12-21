@@ -149,7 +149,10 @@ mkdir -p %{buildroot}%{?_scl_scripts}/register.content%{_sysconfdir}
 
 %files runtime -f filelist
 %scl_files
-%doc README.md LICENSE
+%doc README.md
+%license LICENSE
+%config(noreplace) %{_root_sysconfdir}/scl/prefixes/%{scl}
+%attr(0755,root,root) %{?_scl_scripts}/enable
 %attr(0755,root,root) %{?_scl_scripts}/register
 %attr(0755,root,root) %{?_scl_scripts}/deregister
 %{?_scl_scripts}/register.content
@@ -158,10 +161,13 @@ mkdir -p %{buildroot}%{?_scl_scripts}/register.content%{_sysconfdir}
 %attr(0755,root,root) %{?_scl_scripts}/register.d/*
 
 %files build
-%doc LICENSE
+%doc README.md
+%license LICENSE
 %config(noreplace) %{_root_sysconfdir}/rpm/macros.%{scl}-config
 
 %files scldevel
+%doc README.md
+%doc LICENSE
 %config(noreplace) %{_root_sysconfdir}/rpm/macros.%{scl_name_base}-scldevel
 
 %changelog
