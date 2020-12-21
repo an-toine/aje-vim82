@@ -50,8 +50,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2
       - name: Fetch remote Vim sources
-        run: |
-          spectool --define "_topdir `pwd`" -g -C SOURCES/ SPECS/aje-vim82-vim.spec
+        run: >-
+          spectool --define "_topdir `pwd`" -g
+          -C SOURCES/ SPECS/aje-vim82-vim.spec
       - name: Build SRPM package
         run: |
           rpmbuild --define "_topdir `pwd`" -bs ./SPECS/aje-vim82-vim.spec
@@ -75,3 +76,25 @@ jobs:
           path: |
             SRPMS/*.rpm
           retention-days: 10
+  lint-rpm:
+    runs-on: ubuntu-latest
+    container: centos:7
+    needs: build-vim-rpm
+    steps:
+      - name: Install required packages
+        run: |
+          yum install -y rpmlint
+      - name: Ignore  dir-or-file-in-opt errors
+        run: |
+          echo 'addFilter("E: dir-or-file-in-opt")' >> /etc/rpmlint/config
+      - name: Fetch SCL RPM
+        uses: actions/download-artifact@v2
+        with:
+          name: scl-rpm
+      - name: Fetch Vim RPM
+        uses: actions/download-artifact@v2
+        with:
+          name: vim-rpm
+      - name: Lint all RPM files
+        run: |
+          rpmlint *.rpm
