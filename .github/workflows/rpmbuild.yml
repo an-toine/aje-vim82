@@ -124,4 +124,4 @@ jobs:
         uses: actions/checkout@v2
       - name: Run functionnal tests
         run: |
-          inspec exec tests/*.rb
+          inspec exec tests/*.rb --chef-license=accept-silent
