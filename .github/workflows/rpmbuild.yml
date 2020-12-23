@@ -145,6 +145,6 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/v"+steps.extract_vim_version.vim_version,
+              ref: "refs/tags/v"+context.steps.extract_vim_version.outputs.vim_version,
               sha: context.sha
             })
