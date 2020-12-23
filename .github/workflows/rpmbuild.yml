@@ -125,3 +125,26 @@ jobs:
       - name: Run functionnal tests
         run: |
           inspec exec tests/*.rb --chef-license=accept-silent
+  create-tag:
+    runs-on: ubuntu-latest
+    needs: rpm-functionnal-tests
+    steps:
+      - name: Fetch Vim RPM
+        uses: actions/download-artifact@v2
+        with:
+          name: vim-rpm
+      - name: Retreive Vim version
+        id: extract_vim_version
+        run: |
+          find . -type f -name "*vim-8*.rpm" | head -n 1 | awk 'match($0,/.*vim-([0-9\.\-]+)/,m) {printf "::set-output" ; printf " " ; printf "name=vim_version::" ; print substr(m[1],1,length(m[1])-1)}'
+      - name: Create Git tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v"+steps.extract_vim_version.vim_version,
+              sha: context.sha
+            })
