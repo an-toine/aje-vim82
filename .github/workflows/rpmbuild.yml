@@ -1,6 +1,9 @@
 ---
 name: rpmbuild
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   build-scl-rpm:
     runs-on: ubuntu-latest

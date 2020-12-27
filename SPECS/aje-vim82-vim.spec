@@ -12,7 +12,7 @@
 
 Summary: A greatly improved version of the good old UNIX editor Vi
 Name: %{?scl_prefix}%{pkg_name}
-Version: 8.2.2202
+Version: 8.2.2224
 Release: 1%{?dist}
 License: GPLv2
 Group: Applications/Text
@@ -246,9 +246,4 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 %{_scl_scripts}/deregister.d/*
 
 %changelog
-* Thu Dec 24 2020 Antoine Jouve <ant.jouve@gmail.com> - 8.2.2202-1
-- Build Vim v8.2.2202
-* Mon Dec 21 2020 Antoine Jouve <ant.jouve@gmail.com> - 8.2.2162-2
-- Unpack sources to different directory to avoid debuginfo conflicts
-* Sat Dec 19 2020 Antoine Jouve <ant.jouve@gmail.com> - 8.2.2162-1
-- Rebuild Vim release 8.2.2162
+%include %{_specdir}/CHANGELOGS/aje-vim82-vim
