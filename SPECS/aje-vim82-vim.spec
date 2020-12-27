@@ -13,12 +13,13 @@
 Summary: A greatly improved version of the good old UNIX editor Vi
 Name: %{?scl_prefix}%{pkg_name}
 Version: 8.2.2224
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Group: Applications/Text
 URL: https://github.com/vim/vim
 
 Source: https://github.com/%{pkg_name}/%{pkg_name}/archive/v%{version}.tar.gz
+Source1: changelog-%{scl_prefix}-%{pkg_name}
 
 BuildRequires: gcc gettext make ruby ruby-devel ctags git python python-devel python3 python3-devel tcl-devel ncurses-devel lua-devel perl perl-devel perl-ExtUtils-Embed
 
@@ -246,4 +247,4 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 %{_scl_scripts}/deregister.d/*
 
 %changelog
-%include %{_specdir}/CHANGELOGS/aje-vim82-vim
+%include %{_sourcedir}/changelog-%{scl_prefix}-%{pkg_name}
