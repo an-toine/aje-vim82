@@ -13,7 +13,7 @@
 Summary: A greatly improved version of the good old UNIX editor Vi
 Name: %{?scl_prefix}%{pkg_name}
 Version: 8.2.2224
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPLv2
 Group: Applications/Text
 URL: https://github.com/vim/vim

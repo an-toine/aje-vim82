@@ -1,0 +1,26 @@
+---
+name: nightly_build
+on:
+  schedule:
+    - cron: '0 1 * * *'
+jobs:
+  update_spec_file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Update SPEC file with last tagged version
+        run: >-
+          python update_spec.py --log-level DEBUG "vim/vim"
+           SPECS/aje-vim82-vim.spec SOURCES/changelog-aje-vim82-vim
+      - name: Commit and push updated SPEC file to trigger a rebuild
+        uses: EndBug/add-and-commit@v6
+        with:
+          add: '.'
+          author_name: Antoine Jouve
+          author_email: ant.jouve@gmail.com
+          branch: master
+          cwd: '.'
+          message: 'Nightly rebuild of last Vim tag'
+          push: true
+          token: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
