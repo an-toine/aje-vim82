@@ -10,10 +10,13 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
+      - name: Install Python dependencies
+        run: |
+          apt-get install -y python-requests
       - name: Update SPEC file with last tagged version
         run: >-
           python update_spec.py --log-level DEBUG "vim/vim"
-           SPECS/aje-vim82-vim.spec SOURCES/changelog-aje-vim82-vim
+          SPECS/aje-vim82-vim.spec SOURCES/changelog-aje-vim82-vim
       - name: Commit and push updated SPEC file to trigger a rebuild
         uses: EndBug/add-and-commit@v6
         with:
