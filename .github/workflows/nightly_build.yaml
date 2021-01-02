@@ -3,6 +3,7 @@ name: nightly_build
 on:
   schedule:
     - cron: '0 1 * * *'
+  workflow_dispatch: {}
 jobs:
   update_spec_file:
     runs-on: ubuntu-latest
