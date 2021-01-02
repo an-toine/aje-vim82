@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Python dependencies
         run: |
-          apt-get install -y python-requests
+          sudo apt-get install -y python-requests
       - name: Update SPEC file with last tagged version
         run: >-
           python update_spec.py --log-level DEBUG "vim/vim"
