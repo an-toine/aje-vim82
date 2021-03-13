@@ -14,10 +14,10 @@ jobs:
           token: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
       - name: Install Python dependencies
         run: |
-          sudo apt-get install -y python-requests
+          sudo apt-get install -y python3-requests
       - name: Update SPEC file with last tagged version
         run: >-
-          python update_spec.py --log-level DEBUG "vim/vim"
+          python3 update_spec.py --log-level DEBUG "vim/vim"
           SPECS/aje-vim82-vim.spec SOURCES/changelog-aje-vim82-vim
       - name: Commit and push updated SPEC file to trigger a rebuild
         uses: EndBug/add-and-commit@v6
