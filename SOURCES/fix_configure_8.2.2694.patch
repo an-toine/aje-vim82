@@ -1,13 +1,13 @@
---- src/configure.ac
-+++ src/configure.ac
+--- src/configure.ac.base	2021-04-03 17:16:46.588562205 +0200
++++ src/configure.ac	2021-04-03 17:18:03.772220219 +0200
 @@ -4484,8 +4484,8 @@
    dnl And undefine it first to avoid a warning.
    AC_MSG_CHECKING(whether we need -D_FORTIFY_SOURCE=1)
    if test "$gccmajor" -gt "3"; then
--    CFLAGS=`echo "$CFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/,-D_FORTIFY_SOURCE=. //g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=. //g' -e
--    CPPFLAGS=`echo "$CPPFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/,-D_FORTIFY_SOURCE=. //g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=. //g'
-+    CFLAGS=`echo "$CFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=.//g' -e 's/,-D_FORTIFY_SOURCE=.//g' -e 's
-+    CPPFLAGS=`echo "$CPPFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=.//g' -e 's/,-D_FORTIFY_SOURCE=.//g' -
+-    CFLAGS=`echo "$CFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/,-D_FORTIFY_SOURCE=. //g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=. //g' -e 's/ *-D_FORTIFY_SOURCE=.//g' -e 's/ *-U_FORTIFY_SOURCE//g' -e 's/$/ -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1/'`
+-    CPPFLAGS=`echo "$CPPFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/,-D_FORTIFY_SOURCE=. //g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=. //g' -e 's/ *-D_FORTIFY_SOURCE=.//g' -e 's/ *-U_FORTIFY_SOURCE//g'`
++    CFLAGS=`echo "$CFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=. //g' -e 's/,-D_FORTIFY_SOURCE=. //g' -e 's/ *-D_FORTIFY_SOURCE=.//g' -e 's/ *-U_FORTIFY_SOURCE//g' -e 's/$/ -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1/'`
++    CPPFLAGS=`echo "$CPPFLAGS" | sed -e 's/-D_FORTIFY_SOURCE=.,//g' -e 's/ *-Wp,-D_FORTIFY_SOURCE=. //g' -e 's/,-D_FORTIFY_SOURCE=. //g' -e 's/ *-D_FORTIFY_SOURCE=.//g' -e 's/ *-U_FORTIFY_SOURCE//g'`
      AC_MSG_RESULT(yes)
    else
      AC_MSG_RESULT(no)
