@@ -21,6 +21,8 @@ URL: https://github.com/vim/vim
 Source: https://github.com/%{pkg_name}/%{pkg_name}/archive/v%{version}.tar.gz
 Source1: changelog-%{scl_prefix}%{pkg_name}
 
+Patch0: fix_configure_8.2.2694.patch
+
 BuildRequires: gcc gettext make ruby ruby-devel ctags git python python-devel python3 python3-devel tcl-devel ncurses-devel lua-devel perl perl-devel perl-ExtUtils-Embed
 
 Requires: %{?scl_prefix}%{pkg_name}-common
@@ -59,6 +61,7 @@ both GUI and non GUI Vim packages.
 %prep
 %setup -c -n %{scl}
 cd %{sourcebasename}
+%patch0
 
 %build
 cd %{sourcebasename}
