@@ -225,7 +225,6 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 %lang(zh_TW) %{_datadir}/%{pkg_name}/vim%{scl_name_version}/lang/zh_TW/LC_MESSAGES/vim.mo
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/autoload/*
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/*.vim
-%{_datadir}/%{pkg_name}/vim%{scl_name_version}/*.txt
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/colors/*
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/compiler/*
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/doc/*
