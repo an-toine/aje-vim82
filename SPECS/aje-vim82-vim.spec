@@ -230,6 +230,7 @@ chmod +x %{buildroot}%{?_scl_scripts}/deregister.d/20.remove-vimrc
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/doc/*
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/ftplugin/*
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/indent/*
+%{_datadir}/%{pkg_name}/vim%{scl_name_version}/import/dist/*.vim
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/keymap/*
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/lang/*.vim
 %{_datadir}/%{pkg_name}/vim%{scl_name_version}/lang/*.txt
